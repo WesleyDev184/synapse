@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  # Postgres Database
+  db:
+    image: postgres:17.5-alpine3.21
+    container_name: db
+    attach: false
+    ports:
+      - '5432:5432'
+    networks:
+      - challenge-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: synapse_db
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  challenge-network:
+    driver: bridge
